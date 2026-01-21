@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SANOPHOST | Infrastruktur Cloud Premium</title>
     
-    <!-- Fonts: Plus Jakarta Sans (Lebih geometric & friendly daripada Inter) -->
+    <!-- Fonts: Plus Jakarta Sans (Modern, Geometric, Friendly) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,20 +29,17 @@
                         brand: {
                             50: '#f0f9ff',
                             100: '#e0f2fe',
-                            500: '#0ea5e9', // Sky blue
+                            500: '#0ea5e9',
                             600: '#0284c7',
                             900: '#0c4a6e',
                         },
-                        dark: {
-                            bg: '#020617', // Slate 950
-                            card: '#0f172a', // Slate 900
-                            border: '#1e293b', // Slate 800
-                        }
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'slide-in-right': 'slideInRight 0.4s ease-out forwards',
+                        'spin-slow': 'spin 12s linear infinite',
                     },
                     keyframes: {
                         float: {
@@ -52,6 +49,10 @@
                         slideUp: {
                             '0%': { transform: 'translateY(40px)', opacity: '0' },
                             '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideInRight: {
+                            'from': { transform: 'translateX(100%)', opacity: '0' },
+                            'to': { transform: 'translateX(0)', opacity: '1' },
                         }
                     }
                 }
@@ -64,13 +65,13 @@
             background-color: #020617;
             color: #f8fafc;
             overflow-x: hidden;
-            /* Subtle Noise Texture for Premium Feel */
+            /* Premium Noise Texture */
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
         }
 
-        /* Premium Glass Effect */
+        /* Glassmorphism Classes */
         .glass-nav {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -82,30 +83,62 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 24px; /* Rounded Friendly */
+            border-radius: 24px;
         }
 
         .premium-card:hover {
-            background: rgba(30, 41, 59, 0.6);
-            border-color: rgba(14, 165, 233, 0.3); /* Brand color border on hover */
-            transform: translateY(-8px) scale(1.01);
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateY(-8px);
             box-shadow: 0 20px 40px -15px rgba(14, 165, 233, 0.15);
         }
 
-        /* Text Gradients */
-        .text-gradient-gold {
-            background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Map Pulse Animation */
+        .map-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #38bdf8;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #38bdf8;
+        }
+        .map-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background-color: rgba(56, 189, 248, 0.3);
+            border-radius: 50%;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
         }
 
+        /* FAQ Accordion */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .faq-item.active .faq-content {
+            max-height: 500px; /* Arbitrary large height */
+            transition: max-height 0.5s ease-in;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Aurora Gradients */
         .text-gradient-aurora {
             background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Soft Aurora Background Blurs */
         .aurora-blob {
             position: absolute;
             border-radius: 50%;
@@ -114,56 +147,49 @@
             z-index: -1;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #020617;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-
-        /* Toast Animation */
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        .animate-slide-in-right { animation: slideInRight 0.3s ease-out forwards; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body class="antialiased min-h-screen selection:bg-brand-500 selection:text-white">
+<body class="antialiased min-h-screen selection:bg-brand-500 selection:text-white font-sans">
 
     <!-- Background Ambience -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="aurora-blob bg-blue-600 w-[500px] h-[500px] top-[-100px] left-[-100px] animate-pulse-slow"></div>
-        <div class="aurora-blob bg-violet-600 w-[400px] h-[400px] bottom-[10%] right-[-50px] animate-pulse-slow" style="animation-delay: 2s"></div>
-        <div class="aurora-blob bg-cyan-500 w-[300px] h-[300px] top-[40%] left-[30%] opacity-20 animate-float"></div>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="aurora-blob bg-blue-600/30 w-[600px] h-[600px] top-[-100px] left-[-100px] animate-pulse-slow"></div>
+        <div class="aurora-blob bg-violet-600/30 w-[500px] h-[500px] bottom-[10%] right-[-50px] animate-pulse-slow" style="animation-delay: 2s"></div>
+        <div class="aurora-blob bg-cyan-500/20 w-[300px] h-[300px] top-[40%] left-[30%] animate-float"></div>
     </div>
 
     <!-- Toast Container -->
-    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+    <div id="toast-container" class="fixed bottom-24 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
-    <!-- Floating Navigation (Friendly & Modern) -->
+    <!-- Floating Chat Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="showToast('Tim support sedang online!')" class="group relative w-14 h-14 bg-blue-600 hover:bg-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-blue-600/30 transition-all hover:scale-110">
+            <i data-lucide="message-square" class="w-6 h-6 text-white"></i>
+            <span class="absolute top-0 right-0 w-4 h-4 bg-green-500 border-2 border-[#020617] rounded-full"></span>
+            <span class="absolute right-16 bg-white text-slate-900 px-3 py-1 rounded-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">Chat Kami</span>
+        </button>
+    </div>
+
+    <!-- Floating Navigation -->
     <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-        <nav class="glass-nav rounded-full px-6 py-3 flex items-center justify-between w-full max-w-5xl shadow-2xl">
+        <nav class="glass-nav rounded-full px-6 py-3 flex items-center justify-between w-full max-w-5xl shadow-2xl transition-all duration-300">
             <!-- Logo -->
             <a href="#" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-violet-600 rounded-full flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
-                    <i data-lucide="cloud" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="cloud-lightning" class="w-5 h-5 fill-current"></i>
                 </div>
                 <span class="font-bold text-lg tracking-wide text-white">SANOP<span class="text-blue-400">HOST</span></span>
             </a>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/5">
+            <div class="hidden md:flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/5 backdrop-blur-md">
                 <a href="#services" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Produk</a>
                 <a href="#features" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Fitur</a>
+                <a href="#network" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Network</a>
                 <a href="#pricing" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Harga</a>
             </div>
 
@@ -172,8 +198,8 @@
                 <button onclick="showToast('Membuka Login...')" class="hidden md:block px-5 py-2.5 rounded-full text-sm font-medium text-white hover:bg-white/10 transition-colors">
                     Masuk
                 </button>
-                <button onclick="showToast('Menuju Client Area...')" class="px-6 py-2.5 rounded-full bg-white text-slate-900 text-sm font-bold hover:bg-brand-50 transition-all shadow-lg hover:shadow-white/20 transform hover:-translate-y-0.5">
-                    Client Area
+                <button onclick="showToast('Menuju Client Area...')" class="px-6 py-2.5 rounded-full bg-white text-slate-900 text-sm font-bold hover:bg-blue-50 transition-all shadow-lg hover:shadow-white/20 transform hover:-translate-y-0.5 flex items-center gap-2">
+                    Client Area <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
                 
                 <!-- Mobile Menu Button -->
@@ -185,22 +211,24 @@
     </div>
 
     <!-- Mobile Menu Dropdown -->
-    <div id="mobile-menu" class="fixed inset-0 z-40 bg-slate-950/95 backdrop-blur-xl hidden flex-col items-center justify-center space-y-8 p-6 transition-all">
-        <button id="close-mobile-menu" class="absolute top-8 right-8 text-slate-400 hover:text-white">
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#020617]/95 backdrop-blur-xl hidden flex-col items-center justify-center space-y-8 p-6 transition-all duration-300">
+        <button id="close-mobile-menu" class="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 p-2 rounded-full">
             <i data-lucide="x" class="w-8 h-8"></i>
         </button>
         <a href="#services" class="text-2xl font-medium text-white hover:text-blue-400 mobile-link">Produk</a>
         <a href="#features" class="text-2xl font-medium text-white hover:text-blue-400 mobile-link">Fitur</a>
+        <a href="#network" class="text-2xl font-medium text-white hover:text-blue-400 mobile-link">Jaringan</a>
         <a href="#pricing" class="text-2xl font-medium text-white hover:text-blue-400 mobile-link">Harga</a>
-        <button onclick="showToast('Membuka Login...')" class="text-2xl font-medium text-slate-400 hover:text-white">Login</button>
+        <div class="w-full h-px bg-white/10 max-w-xs"></div>
+        <button onclick="showToast('Membuka Login...')" class="text-xl font-medium text-slate-400 hover:text-white">Login Akun</button>
     </div>
 
     <!-- Hero Section -->
-    <section class="relative pt-48 pb-24 lg:pt-60 lg:pb-32 px-4 overflow-hidden">
+    <section class="relative pt-48 pb-20 lg:pt-60 lg:pb-28 px-4 overflow-hidden">
         <div class="max-w-6xl mx-auto text-center relative z-10">
             
             <!-- Friendly Pill Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-8 animate-slide-up">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-8 animate-slide-up hover:bg-blue-500/20 transition-colors cursor-pointer" onclick="showToast('Lihat detail update Ryzen 9')">
                 <span class="relative flex h-3 w-3">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
@@ -215,13 +243,31 @@
             </h1>
 
             <!-- Subheadline -->
-            <p class="mt-2 text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed animate-slide-up" style="animation-delay: 0.2s;">
+            <p class="mt-2 text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up" style="animation-delay: 0.2s;">
                 Rasakan performa server premium dengan dashboard yang <span class="text-white font-medium">friendly</span>. Web Hosting, VPS, dan Game Server dalam satu ekosistem.
             </p>
 
+            <!-- Domain Search Widget (Interactive) -->
+            <div class="max-w-2xl mx-auto mb-12 animate-slide-up" style="animation-delay: 0.25s;">
+                <div class="bg-white/5 p-2 rounded-full border border-white/10 flex flex-col sm:flex-row gap-2 backdrop-blur-md">
+                    <div class="flex-1 flex items-center px-4">
+                        <i data-lucide="search" class="text-slate-500 w-5 h-5 mr-3"></i>
+                        <input type="text" id="domain-input" placeholder="Cari nama domain impianmu..." class="bg-transparent border-none outline-none text-white w-full placeholder-slate-500 h-10">
+                    </div>
+                    <button onclick="checkDomain()" class="px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-lg flex items-center justify-center gap-2">
+                        Cari <span class="hidden sm:inline">Domain</span>
+                    </button>
+                </div>
+                <div class="flex justify-center gap-4 mt-4 text-sm text-slate-500">
+                    <span class="flex items-center gap-1"><span class="text-blue-400 font-bold">.com</span> Rp 125k</span>
+                    <span class="flex items-center gap-1"><span class="text-blue-400 font-bold">.id</span> Rp 200k</span>
+                    <span class="flex items-center gap-1"><span class="text-blue-400 font-bold">.xyz</span> Rp 15k</span>
+                </div>
+            </div>
+
             <!-- Buttons -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 0.3s;">
-                <a href="#pricing" class="w-full sm:w-auto px-10 py-4 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all transform hover:-translate-y-1">
+                <a href="#pricing" class="w-full sm:w-auto px-10 py-4 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all transform hover:-translate-y-1 text-center">
                     Mulai Sekarang
                 </a>
                 <a href="#features" class="w-full sm:w-auto px-10 py-4 rounded-full border border-slate-700 hover:bg-slate-800 text-white font-medium transition-all flex items-center justify-center gap-2 hover:border-slate-500">
@@ -231,21 +277,105 @@
 
             <!-- Trust Metrics -->
             <div class="mt-24 pt-10 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-8 animate-slide-up" style="animation-delay: 0.4s;">
-                <div class="text-center">
-                    <h3 class="text-4xl font-bold text-white mb-1">5000+</h3>
+                <div class="text-center group cursor-default">
+                    <h3 class="text-4xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">5k+</h3>
                     <p class="text-sm text-slate-500 uppercase tracking-wider font-semibold">Active Servers</p>
                 </div>
-                <div class="text-center">
-                    <h3 class="text-4xl font-bold text-white mb-1">99.99%</h3>
+                <div class="text-center group cursor-default">
+                    <h3 class="text-4xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">99.9%</h3>
                     <p class="text-sm text-slate-500 uppercase tracking-wider font-semibold">Uptime Guarantee</p>
                 </div>
-                <div class="text-center">
-                    <h3 class="text-4xl font-bold text-white mb-1">&lt;15ms</h3>
+                <div class="text-center group cursor-default">
+                    <h3 class="text-4xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">&lt;15ms</h3>
                     <p class="text-sm text-slate-500 uppercase tracking-wider font-semibold">Global Latency</p>
                 </div>
-                <div class="text-center">
-                    <h3 class="text-4xl font-bold text-white mb-1">24/7</h3>
+                <div class="text-center group cursor-default">
+                    <h3 class="text-4xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">24/7</h3>
                     <p class="text-sm text-slate-500 uppercase tracking-wider font-semibold">Premium Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Network Section (New) -->
+    <section id="network" class="py-24 relative bg-slate-900/20 border-y border-white/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-blue-400 font-bold tracking-wider text-sm uppercase">Global Infrastructure</span>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 mt-2">Jangkauan Tanpa Batas</h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto">Server kami tersebar di lokasi strategis untuk memastikan latensi terendah bagi pengguna Anda.</p>
+            </div>
+            
+            <!-- Abstract Map Visualization -->
+            <div class="relative w-full h-[300px] md:h-[500px] bg-[#0f172a] rounded-3xl border border-white/5 shadow-2xl overflow-hidden group">
+                <!-- Map Grid Lines -->
+                <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+                
+                <!-- World Map Silhouette (SVG) -->
+                <div class="absolute inset-0 opacity-20 flex items-center justify-center">
+                   <svg viewBox="0 0 1000 500" class="w-full h-full fill-slate-500">
+                       <!-- Simplified World Shapes -->
+                       <path d="M200,150 Q250,100 300,150 T400,150 T500,200 T600,150 T800,150" stroke="white" stroke-width="2" fill="none" class="opacity-10" />
+                       <circle cx="220" cy="180" r="40" class="fill-white/5" /> <!-- USA -->
+                       <circle cx="480" cy="160" r="30" class="fill-white/5" /> <!-- Europe -->
+                       <circle cx="750" cy="250" r="50" class="fill-white/5" /> <!-- Asia -->
+                   </svg>
+                </div>
+
+                <!-- Locations with Tooltips -->
+                <!-- Indonesia -->
+                <div class="absolute top-[60%] left-[78%] group/pin cursor-pointer" onclick="showToast('Lokasi: Jakarta, Indonesia (Ping: 2ms)')">
+                    <div class="map-dot"></div>
+                    <div class="map-pulse"></div>
+                    <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10">Jakarta (HQ)</div>
+                </div>
+
+                <!-- Singapore -->
+                <div class="absolute top-[55%] left-[75%] group/pin cursor-pointer" onclick="showToast('Lokasi: Singapura (Ping: 15ms)')">
+                    <div class="map-dot bg-violet-400 shadow-violet-400"></div>
+                    <div class="map-pulse bg-violet-400/30"></div>
+                    <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10">Singapore</div>
+                </div>
+
+                <!-- USA -->
+                <div class="absolute top-[35%] left-[22%] group/pin cursor-pointer" onclick="showToast('Lokasi: New York, USA (Ping: 180ms)')">
+                    <div class="map-dot bg-emerald-400 shadow-emerald-400"></div>
+                    <div class="map-pulse bg-emerald-400/30"></div>
+                     <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10">New York</div>
+                </div>
+
+                 <!-- Germany -->
+                 <div class="absolute top-[30%] left-[51%] group/pin cursor-pointer" onclick="showToast('Lokasi: Frankfurt, DE (Ping: 160ms)')">
+                    <div class="map-dot bg-orange-400 shadow-orange-400"></div>
+                    <div class="map-pulse bg-orange-400/30"></div>
+                     <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10">Frankfurt</div>
+                </div>
+
+                <!-- Connectivity Lines -->
+                <svg class="absolute inset-0 w-full h-full pointer-events-none">
+                    <path d="M220 175 Q 485 50 780 300" stroke="url(#gradient-line)" stroke-width="2" fill="none" stroke-dasharray="10 10" class="opacity-30 animate-pulse"/>
+                    <defs>
+                        <linearGradient id="gradient-line" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#34d399" stop-opacity="0" />
+                            <stop offset="50%" stop-color="#38bdf8" stop-opacity="1" />
+                            <stop offset="100%" stop-color="#818cf8" stop-opacity="0" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="flex justify-center gap-8 mt-8 flex-wrap">
+                <div class="flex items-center gap-2 text-slate-400 text-sm">
+                    <div class="w-3 h-3 rounded-full bg-blue-400"></div> Indonesia
+                </div>
+                <div class="flex items-center gap-2 text-slate-400 text-sm">
+                    <div class="w-3 h-3 rounded-full bg-violet-400"></div> Singapore
+                </div>
+                <div class="flex items-center gap-2 text-slate-400 text-sm">
+                    <div class="w-3 h-3 rounded-full bg-emerald-400"></div> USA
+                </div>
+                <div class="flex items-center gap-2 text-slate-400 text-sm">
+                    <div class="w-3 h-3 rounded-full bg-orange-400"></div> Europe
                 </div>
             </div>
         </div>
@@ -262,12 +392,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 <!-- Web Hosting -->
-                <div class="premium-card p-8 group cursor-pointer" onclick="showToast('Detail Web Hosting...')">
+                <div class="premium-card p-8 group cursor-pointer h-full flex flex-col" onclick="showToast('Detail Web Hosting...')">
                     <div class="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-blue-500/10">
                         <i data-lucide="globe" class="text-blue-400 w-7 h-7"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-3">Web Hosting</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Hosting cPanel ultra-cepat untuk website bisnis & personal. Gratis SSL & Domain.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Hosting cPanel ultra-cepat untuk website bisnis & personal. Gratis SSL & Domain.</p>
                     <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
                         <span class="text-blue-400 font-bold">Mulai 15rb</span>
                         <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-colors">
@@ -277,12 +407,12 @@
                 </div>
 
                 <!-- VPS -->
-                <div class="premium-card p-8 group cursor-pointer" onclick="showToast('Detail VPS KVM...')">
+                <div class="premium-card p-8 group cursor-pointer h-full flex flex-col" onclick="showToast('Detail VPS KVM...')">
                     <div class="w-14 h-14 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-violet-500/10">
                         <i data-lucide="cpu" class="text-violet-400 w-7 h-7"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-3">Cloud VPS</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Dedicated resources dengan teknologi KVM. Performa stabil untuk aplikasi berat.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Dedicated resources dengan teknologi KVM. Performa stabil untuk aplikasi berat.</p>
                     <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
                         <span class="text-violet-400 font-bold">Mulai 80rb</span>
                         <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-violet-500 group-hover:text-white transition-colors">
@@ -292,12 +422,12 @@
                 </div>
 
                 <!-- Game Server -->
-                <div class="premium-card p-8 group cursor-pointer" onclick="showToast('Detail Game Server...')">
+                <div class="premium-card p-8 group cursor-pointer h-full flex flex-col" onclick="showToast('Detail Game Server...')">
                     <div class="w-14 h-14 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-emerald-500/10">
-                        <i data-lucide="joystick" class="text-emerald-400 w-7 h-7"></i>
+                        <i data-lucide="gamepad-2" class="text-emerald-400 w-7 h-7"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-3">Game Panel</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Low latency server untuk Minecraft, SAMP, FiveM. Perlindungan Anti-DDoS Layer 7.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Low latency server untuk Minecraft, SAMP, FiveM. Perlindungan Anti-DDoS Layer 7.</p>
                     <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
                         <span class="text-emerald-400 font-bold">Mulai 25rb</span>
                         <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors">
@@ -307,12 +437,12 @@
                 </div>
 
                 <!-- RDP -->
-                <div class="premium-card p-8 group cursor-pointer" onclick="showToast('Detail RDP...')">
+                <div class="premium-card p-8 group cursor-pointer h-full flex flex-col" onclick="showToast('Detail RDP...')">
                     <div class="w-14 h-14 bg-gradient-to-br from-orange-500/20 to-amber-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-orange-500/10">
-                        <i data-lucide="monitor-smartphone" class="text-orange-400 w-7 h-7"></i>
+                        <i data-lucide="monitor" class="text-orange-400 w-7 h-7"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-3">RDP Admin</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Remote Desktop Protocol dengan akses Full Administrator. Online 24/7 non-stop.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">Remote Desktop Protocol dengan akses Full Administrator. Online 24/7 non-stop.</p>
                     <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
                         <span class="text-orange-400 font-bold">Mulai 50rb</span>
                         <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-colors">
@@ -325,12 +455,12 @@
         </div>
     </section>
 
-    <!-- Feature Showcase (Expensive UI Mockup) -->
+    <!-- Features & Dashboard Showcase -->
     <section id="features" class="py-24 bg-slate-900/30 border-y border-white/5 scroll-mt-24">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 
-                <!-- Left: Typography -->
+                <!-- Left: Typography & List -->
                 <div class="order-2 lg:order-1">
                     <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight">Kontrol Penuh di <br/>Ujung Jari Anda.</h2>
                     <p class="text-slate-400 text-lg mb-8 leading-relaxed">
@@ -338,7 +468,7 @@
                     </p>
                     
                     <div class="space-y-6">
-                        <div class="flex items-start gap-4">
+                        <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
                             <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center flex-shrink-0 mt-1">
                                 <i data-lucide="zap" class="w-5 h-5 text-blue-400"></i>
                             </div>
@@ -347,7 +477,7 @@
                                 <p class="text-slate-500 text-sm mt-1">Server aktif otomatis dalam kurang dari 60 detik setelah pembayaran.</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
+                        <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
                             <div class="w-10 h-10 rounded-full bg-violet-500/10 flex items-center justify-center flex-shrink-0 mt-1">
                                 <i data-lucide="shield-check" class="w-5 h-5 text-violet-400"></i>
                             </div>
@@ -356,7 +486,7 @@
                                 <p class="text-slate-500 text-sm mt-1">Dilengkapi Imunify360 dan Path.js filtering untuk mitigasi serangan.</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
+                        <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
                             <div class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0 mt-1">
                                 <i data-lucide="database" class="w-5 h-5 text-emerald-400"></i>
                             </div>
@@ -368,12 +498,12 @@
                     </div>
                 </div>
 
-                <!-- Right: Friendly Mockup -->
-                <div class="order-1 lg:order-2 relative">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 rounded-full blur-[100px]"></div>
+                <!-- Right: Dashboard Mockup -->
+                <div class="order-1 lg:order-2 relative group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 rounded-full blur-[100px] opacity-70 group-hover:opacity-100 transition-opacity"></div>
                     
                     <!-- Abstract UI Card -->
-                    <div class="relative bg-[#0f172a] border border-slate-700 rounded-3xl p-6 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+                    <div class="relative bg-[#0f172a] border border-slate-700 rounded-3xl p-6 shadow-2xl rotate-2 hover:rotate-0 transition-all duration-500 hover:scale-[1.02]">
                         <!-- Fake Header -->
                         <div class="flex justify-between items-center mb-8">
                             <div class="flex gap-4">
@@ -385,19 +515,21 @@
                                     <div class="h-2 w-20 bg-slate-800 rounded-full"></div>
                                 </div>
                             </div>
-                            <div class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold">Online</div>
+                            <div class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Online
+                            </div>
                         </div>
 
                         <!-- Stats Grid -->
                         <div class="grid grid-cols-2 gap-4 mb-8">
-                            <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5">
+                            <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
                                 <p class="text-slate-500 text-xs mb-1">CPU Load</p>
                                 <h3 class="text-white text-xl font-bold">12%</h3>
                                 <div class="w-full bg-slate-700 h-1.5 rounded-full mt-3 overflow-hidden">
                                     <div class="bg-blue-500 w-[12%] h-full rounded-full"></div>
                                 </div>
                             </div>
-                            <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5">
+                            <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5 hover:border-violet-500/30 transition-colors">
                                 <p class="text-slate-500 text-xs mb-1">RAM Usage</p>
                                 <h3 class="text-white text-xl font-bold">4.2 GB</h3>
                                 <div class="w-full bg-slate-700 h-1.5 rounded-full mt-3 overflow-hidden">
@@ -407,19 +539,82 @@
                         </div>
 
                         <!-- Fake Terminal/Logs -->
-                        <div class="bg-black/40 rounded-xl p-4 space-y-2 border border-white/5">
+                        <div class="bg-black/40 rounded-xl p-4 space-y-2 border border-white/5 font-mono text-xs">
                             <div class="flex gap-2 items-center">
-                                <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-                                <div class="h-2 w-full bg-slate-800/50 rounded-full"></div>
+                                <span class="text-blue-400">$</span>
+                                <span class="text-slate-300">apt-get update && upgrade</span>
                             </div>
+                            <div class="text-slate-500 pl-4">Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease</div>
+                            <div class="text-slate-500 pl-4">Fetched 24.3 MB in 2s (11.2 MB/s)</div>
                             <div class="flex gap-2 items-center">
-                                <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                                <div class="h-2 w-2/3 bg-slate-800/50 rounded-full"></div>
+                                <span class="text-blue-400">$</span>
+                                <span class="text-emerald-400">System is up to date.</span>
                             </div>
-                            <div class="flex gap-2 items-center">
-                                <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-                                <div class="h-2 w-3/4 bg-slate-800/50 rounded-full"></div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials (New) -->
+    <section class="py-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-16">Dipercaya oleh Developer</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Testi 1 -->
+                <div class="premium-card p-8">
+                    <div class="flex items-center gap-1 mb-4 text-yellow-400">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-6">"Migrasi ke Sanophost adalah keputusan terbaik. Server FiveM saya tidak pernah down lagi, dan supportnya sangat membantu saat konfigurasi firewall."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white">AD</div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Aditya Dwi</h4>
+                            <p class="text-slate-600 text-xs">Owner Roleplay Indo</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Testi 2 -->
+                 <div class="premium-card p-8">
+                    <div class="flex items-center gap-1 mb-4 text-yellow-400">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-6">"Dashboardnya sangat user friendly tapi powerfull. VPS KVM performanya di luar ekspektasi untuk harga segini. Recommended!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white">BS</div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Budi Santoso</h4>
+                            <p class="text-slate-600 text-xs">Fullstack Developer</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Testi 3 -->
+                 <div class="premium-card p-8">
+                    <div class="flex items-center gap-1 mb-4 text-yellow-400">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star-half" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-6">"Uptime stabil, ping kecil. Cocok banget buat hosting web klien corporate saya. Fitur backup otomatisnya lifesaver."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white">RJ</div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Rian Jayadi</h4>
+                            <p class="text-slate-600 text-xs">Freelancer</p>
                         </div>
                     </div>
                 </div>
@@ -444,7 +639,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
                 <!-- Starter -->
-                <div class="premium-card p-8 flex flex-col">
+                <div class="premium-card p-8 flex flex-col hover:border-slate-600">
                     <h3 class="text-xl font-bold text-white mb-2">Starter Pack</h3>
                     <p class="text-slate-400 text-sm mb-6">Untuk project kecil.</p>
                     <div class="mb-8">
@@ -456,11 +651,12 @@
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-500"></i> 1 Website</li>
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-500"></i> 5 GB NVMe Storage</li>
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-500"></i> Free SSL</li>
+                        <li class="flex gap-3 text-slate-500"><i data-lucide="x" class="w-5 h-5"></i> <span class="line-through">Priority Support</span></li>
                     </ul>
                 </div>
 
                 <!-- Business (Highlighted) -->
-                <div class="relative premium-card p-8 flex flex-col border-blue-500/50 bg-blue-900/10 transform md:-translate-y-4 shadow-2xl shadow-blue-900/20">
+                <div class="relative premium-card p-8 flex flex-col border-blue-500/50 bg-blue-900/10 transform md:-translate-y-4 shadow-2xl shadow-blue-900/20 scale-105 border-2">
                     <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">POPULAR</div>
                     <h3 class="text-xl font-bold text-white mb-2 text-blue-300">Business Pro</h3>
                     <p class="text-blue-200/60 text-sm mb-6">Paling pas untuk berkembang.</p>
@@ -468,17 +664,18 @@
                         <span class="text-4xl font-bold text-white price-tag" data-monthly="45k" data-annual="36k">45k</span>
                         <span class="text-slate-500">/bulan</span>
                     </div>
-                    <a href="#" onclick="showToast('Memilih Business Pro...')" class="w-full py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-500 transition-colors text-center mb-8 shadow-lg shadow-blue-500/25">Order Sekarang</a>
+                    <a href="#" onclick="showToast('Memilih Business Pro...')" class="w-full py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-500 transition-colors text-center mb-8 shadow-lg shadow-blue-500/25 ring-4 ring-blue-500/20">Order Sekarang</a>
                     <ul class="space-y-4 text-sm text-slate-300 flex-1">
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-400"></i> 10 Websites</li>
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-400"></i> 50 GB NVMe Storage</li>
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-400"></i> 2 GB RAM & 2 CPU</li>
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-400"></i> Free Domain .COM</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-400"></i> Daily Backups</li>
                     </ul>
                 </div>
 
                 <!-- Enterprise -->
-                <div class="premium-card p-8 flex flex-col">
+                <div class="premium-card p-8 flex flex-col hover:border-slate-600">
                     <h3 class="text-xl font-bold text-white mb-2">Titan Cloud</h3>
                     <p class="text-slate-400 text-sm mb-6">Performa maksimal.</p>
                     <div class="mb-8">
@@ -492,6 +689,46 @@
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-500"></i> 8 GB RAM & 4 CPU</li>
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-blue-500"></i> Prioritas Support VIP</li>
                     </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section (New & Interactive) -->
+    <section class="py-24 bg-slate-900/30 border-t border-white/5">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Pertanyaan Umum (FAQ)</h2>
+            <div class="space-y-4">
+                
+                <div class="faq-item premium-card p-6 cursor-pointer" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-lg text-white">Bagaimana cara migrasi dari hosting lain?</h4>
+                        <i data-lucide="chevron-down" class="faq-icon text-slate-400 transition-transform"></i>
+                    </div>
+                    <div class="faq-content text-slate-400 text-sm mt-0">
+                        <p class="pt-4">Tim support kami akan membantu proses migrasi website Anda secara GRATIS tanpa downtime. Cukup berikan akses cPanel lama Anda melalui tiket support.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item premium-card p-6 cursor-pointer" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-lg text-white">Apakah ada garansi uang kembali?</h4>
+                        <i data-lucide="chevron-down" class="faq-icon text-slate-400 transition-transform"></i>
+                    </div>
+                    <div class="faq-content text-slate-400 text-sm mt-0">
+                        <p class="pt-4">Ya, kami menyediakan garansi uang kembali 7 hari untuk layanan Web Hosting dan 3 hari untuk VPS jika Anda tidak puas dengan performa server kami.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item premium-card p-6 cursor-pointer" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-lg text-white">Metode pembayaran apa saja yang tersedia?</h4>
+                        <i data-lucide="chevron-down" class="faq-icon text-slate-400 transition-transform"></i>
+                    </div>
+                    <div class="faq-content text-slate-400 text-sm mt-0">
+                        <p class="pt-4">Kami menerima transfer Bank (BCA, Mandiri, BNI), E-Wallet (GoPay, OVO, Dana), dan QRIS untuk aktivasi otomatis instan.</p>
+                    </div>
                 </div>
 
             </div>
@@ -533,7 +770,7 @@
                     <h4 class="font-bold text-white mb-6">Perusahaan</h4>
                     <ul class="space-y-4 text-sm text-slate-500">
                         <li><a href="#" class="hover:text-blue-400 transition-colors">Tentang Kami</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors">Network Status</a></li>
+                        <li><a href="#network" class="hover:text-blue-400 transition-colors">Network Status</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition-colors">Karir</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition-colors">Blog</a></li>
                     </ul>
@@ -552,9 +789,14 @@
             
             <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-slate-600 text-sm">© 2024 Sanophost Cloud Solutions. Dibuat dengan presisi.</p>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span class="text-xs text-slate-500 font-medium">Semua Sistem Normal</span>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                         <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-xs text-slate-500 font-medium">System Normal</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -569,20 +811,59 @@
         function showToast(message) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = 'bg-slate-800/90 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-xl border border-white/10 flex items-center gap-3 animate-slide-in-right pointer-events-auto min-w-[280px]';
+            toast.className = 'bg-slate-800/90 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-xl border border-white/10 flex items-center gap-3 animate-slide-in-right pointer-events-auto min-w-[280px] hover:bg-slate-700/90 transition-colors cursor-pointer';
             toast.innerHTML = `
-                <i data-lucide="check-circle-2" class="text-emerald-400 w-5 h-5"></i>
+                <div class="p-1 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full">
+                    <i data-lucide="check-circle-2" class="text-white w-4 h-4"></i>
+                </div>
                 <span class="text-sm font-medium">${message}</span>
             `;
             container.appendChild(toast);
-            lucide.createIcons(); // Refresh icon in new element
+            lucide.createIcons(); 
+
+            // Click to remove manually
+            toast.onclick = function() {
+                removeToast(toast);
+            }
 
             setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(20px)';
-                toast.style.transition = 'all 0.5s ease';
-                setTimeout(() => toast.remove(), 500);
+                removeToast(toast);
             }, 3000);
+        }
+
+        function removeToast(element) {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'all 0.5s ease';
+            setTimeout(() => {
+                if(element.parentElement) element.remove();
+            }, 500);
+        }
+
+        // Domain Checker Logic
+        function checkDomain() {
+            const input = document.getElementById('domain-input');
+            const val = input.value.trim();
+            if(!val) {
+                showToast("Silakan masukkan nama domain!");
+                return;
+            }
+            showToast(`Mengecek ketersediaan: ${val}...`);
+            setTimeout(() => {
+                showToast(`Selamat! ${val} tersedia.`);
+            }, 1500);
+        }
+
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            // Close all others
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if(item !== element) {
+                    item.classList.remove('active');
+                }
+            });
+            // Toggle current
+            element.classList.toggle('active');
         }
 
         // Mobile Menu Logic
@@ -629,17 +910,18 @@
             }
         }
 
-        // Simple Intersection Observer for Animations
+        // Animation Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate-slide-up');
                     entry.target.style.opacity = 1;
+                    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.premium-card, section h2, .order-2').forEach(el => {
+        document.querySelectorAll('.premium-card, section h2, .order-2, .animate-slide-up').forEach(el => {
             el.style.opacity = 0;
             observer.observe(el);
         });
