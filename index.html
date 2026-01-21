@@ -147,6 +147,19 @@
             z-index: -1;
         }
 
+        /* Tool Result Container Animation */
+        .tool-result {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .tool-result.show {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
@@ -188,8 +201,8 @@
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/5 backdrop-blur-md">
                 <a href="#services" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Produk</a>
-                <a href="#features" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Fitur</a>
-                <a href="#network" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Network</a>
+                <a href="#network" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Jaringan</a>
+                <a href="#tools" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Tools</a>
                 <a href="#pricing" class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Harga</a>
             </div>
 
@@ -216,8 +229,8 @@
             <i data-lucide="x" class="w-8 h-8"></i>
         </button>
         <a href="#services" class="text-2xl font-medium text-white hover:text-blue-400 mobile-link">Produk</a>
-        <a href="#features" class="text-2xl font-medium text-white hover:text-blue-400 mobile-link">Fitur</a>
         <a href="#network" class="text-2xl font-medium text-white hover:text-blue-400 mobile-link">Jaringan</a>
+        <a href="#tools" class="text-2xl font-medium text-white hover:text-blue-400 mobile-link">Tools</a>
         <a href="#pricing" class="text-2xl font-medium text-white hover:text-blue-400 mobile-link">Harga</a>
         <div class="w-full h-px bg-white/10 max-w-xs"></div>
         <button onclick="showToast('Membuka Login...')" class="text-xl font-medium text-slate-400 hover:text-white">Login Akun</button>
@@ -270,8 +283,8 @@
                 <a href="#pricing" class="w-full sm:w-auto px-10 py-4 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all transform hover:-translate-y-1 text-center">
                     Mulai Sekarang
                 </a>
-                <a href="#features" class="w-full sm:w-auto px-10 py-4 rounded-full border border-slate-700 hover:bg-slate-800 text-white font-medium transition-all flex items-center justify-center gap-2 hover:border-slate-500">
-                    <i data-lucide="play-circle" class="w-5 h-5"></i> Pelajari Cara Kerja
+                <a href="#tools" class="w-full sm:w-auto px-10 py-4 rounded-full border border-slate-700 hover:bg-slate-800 text-white font-medium transition-all flex items-center justify-center gap-2 hover:border-slate-500">
+                    <i data-lucide="wrench" class="w-5 h-5"></i> Utilitas Gratis
                 </a>
             </div>
 
@@ -297,7 +310,7 @@
         </div>
     </section>
 
-    <!-- Global Network Section (New) -->
+    <!-- Global Network Section -->
     <section id="network" class="py-24 relative bg-slate-900/20 border-y border-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
@@ -363,20 +376,90 @@
                     </defs>
                 </svg>
             </div>
-            
-            <div class="flex justify-center gap-8 mt-8 flex-wrap">
-                <div class="flex items-center gap-2 text-slate-400 text-sm">
-                    <div class="w-3 h-3 rounded-full bg-blue-400"></div> Indonesia
+        </div>
+    </section>
+
+    <!-- NEW: Free Tools Section (API Powered) -->
+    <section id="tools" class="py-24 relative scroll-mt-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-emerald-400 font-bold tracking-wider text-sm uppercase">Gratis untuk Developer</span>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 mt-2">Utilitas & Tools</h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto">Gunakan tool gratis kami untuk mengecek status server game atau informasi jaringan Anda.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- Tool 1: Minecraft Checker -->
+                <div class="premium-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center border border-green-500/10">
+                            <i data-lucide="box" class="text-green-400 w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Cek Server Minecraft</h3>
+                            <p class="text-slate-400 text-sm">Lihat status, player, & MOTD.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-black/30 p-2 rounded-lg border border-white/10 flex">
+                            <input type="text" id="mc-input" placeholder="IP: mc.hypixel.net" class="bg-transparent border-none outline-none text-white w-full px-2 placeholder-slate-600 font-mono">
+                            <button onclick="checkMinecraft()" class="px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-md text-sm font-bold transition-colors">Cek</button>
+                        </div>
+                        
+                        <!-- Result -->
+                        <div id="mc-result" class="tool-result bg-[#1e1e1e] p-4 rounded-lg font-mono text-xs border border-white/5 shadow-inner">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="w-2 h-2 rounded-full bg-slate-500" id="mc-status-dot"></span>
+                                <span class="text-slate-300" id="mc-status-text">Menunggu input...</span>
+                            </div>
+                            <div class="space-y-1 text-slate-400">
+                                <p>Version: <span id="mc-ver" class="text-white">-</span></p>
+                                <p>Players: <span id="mc-players" class="text-white">-</span></p>
+                                <p class="mt-2 text-slate-500 border-t border-white/5 pt-2 italic" id="mc-motd">...</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2 text-slate-400 text-sm">
-                    <div class="w-3 h-3 rounded-full bg-violet-400"></div> Singapore
+
+                <!-- Tool 2: IP Info -->
+                <div class="premium-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center border border-blue-500/10">
+                            <i data-lucide="globe-2" class="text-blue-400 w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Informasi IP Saya</h3>
+                            <p class="text-slate-400 text-sm">Deteksi ISP & Lokasi Anda.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                         <button onclick="getMyIP()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-bold transition-colors shadow-lg flex items-center justify-center gap-2">
+                            <i data-lucide="scan" class="w-4 h-4"></i> Scan IP Saya
+                        </button>
+                        
+                        <!-- Result -->
+                        <div id="ip-result" class="tool-result">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-slate-800/50 p-3 rounded-lg border border-white/5">
+                                    <p class="text-slate-500 text-xs uppercase tracking-wider">IP Address</p>
+                                    <p id="my-ip" class="text-white font-mono font-bold mt-1 text-lg">...</p>
+                                </div>
+                                <div class="bg-slate-800/50 p-3 rounded-lg border border-white/5">
+                                    <p class="text-slate-500 text-xs uppercase tracking-wider">Negara</p>
+                                    <p id="my-country" class="text-white font-bold mt-1">...</p>
+                                </div>
+                                <div class="bg-slate-800/50 p-3 rounded-lg border border-white/5 col-span-2">
+                                    <p class="text-slate-500 text-xs uppercase tracking-wider">ISP / Provider</p>
+                                    <p id="my-isp" class="text-white font-bold mt-1">...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2 text-slate-400 text-sm">
-                    <div class="w-3 h-3 rounded-full bg-emerald-400"></div> USA
-                </div>
-                <div class="flex items-center gap-2 text-slate-400 text-sm">
-                    <div class="w-3 h-3 rounded-full bg-orange-400"></div> Europe
-                </div>
+
             </div>
         </div>
     </section>
@@ -557,71 +640,6 @@
         </div>
     </section>
 
-    <!-- Testimonials (New) -->
-    <section class="py-24">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-16">Dipercaya oleh Developer</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Testi 1 -->
-                <div class="premium-card p-8">
-                    <div class="flex items-center gap-1 mb-4 text-yellow-400">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-slate-400 text-sm mb-6">"Migrasi ke Sanophost adalah keputusan terbaik. Server FiveM saya tidak pernah down lagi, dan supportnya sangat membantu saat konfigurasi firewall."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white">AD</div>
-                        <div>
-                            <h4 class="text-white font-bold text-sm">Aditya Dwi</h4>
-                            <p class="text-slate-600 text-xs">Owner Roleplay Indo</p>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- Testi 2 -->
-                 <div class="premium-card p-8">
-                    <div class="flex items-center gap-1 mb-4 text-yellow-400">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-slate-400 text-sm mb-6">"Dashboardnya sangat user friendly tapi powerfull. VPS KVM performanya di luar ekspektasi untuk harga segini. Recommended!"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white">BS</div>
-                        <div>
-                            <h4 class="text-white font-bold text-sm">Budi Santoso</h4>
-                            <p class="text-slate-600 text-xs">Fullstack Developer</p>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- Testi 3 -->
-                 <div class="premium-card p-8">
-                    <div class="flex items-center gap-1 mb-4 text-yellow-400">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star-half" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-slate-400 text-sm mb-6">"Uptime stabil, ping kecil. Cocok banget buat hosting web klien corporate saya. Fitur backup otomatisnya lifesaver."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white">RJ</div>
-                        <div>
-                            <h4 class="text-white font-bold text-sm">Rian Jayadi</h4>
-                            <p class="text-slate-600 text-xs">Freelancer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Pricing Section -->
     <section id="pricing" class="py-24 scroll-mt-24">
         <div class="max-w-7xl mx-auto px-4">
@@ -695,7 +713,7 @@
         </div>
     </section>
 
-    <!-- FAQ Section (New & Interactive) -->
+    <!-- FAQ Section -->
     <section class="py-24 bg-slate-900/30 border-t border-white/5">
         <div class="max-w-3xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12">Pertanyaan Umum (FAQ)</h2>
@@ -808,13 +826,21 @@
         lucide.createIcons();
 
         // Toast Function
-        function showToast(message) {
+        function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
+            
+            let icon = 'check-circle-2';
+            let color = 'from-blue-500 to-violet-500';
+            if(type === 'error') {
+                icon = 'alert-circle';
+                color = 'from-red-500 to-orange-500';
+            }
+
             toast.className = 'bg-slate-800/90 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-xl border border-white/10 flex items-center gap-3 animate-slide-in-right pointer-events-auto min-w-[280px] hover:bg-slate-700/90 transition-colors cursor-pointer';
             toast.innerHTML = `
-                <div class="p-1 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full">
-                    <i data-lucide="check-circle-2" class="text-white w-4 h-4"></i>
+                <div class="p-1 bg-gradient-to-br ${color} rounded-full">
+                    <i data-lucide="${icon}" class="text-white w-4 h-4"></i>
                 </div>
                 <span class="text-sm font-medium">${message}</span>
             `;
@@ -840,12 +866,12 @@
             }, 500);
         }
 
-        // Domain Checker Logic
+        // Domain Checker Logic (Simulation)
         function checkDomain() {
             const input = document.getElementById('domain-input');
             const val = input.value.trim();
             if(!val) {
-                showToast("Silakan masukkan nama domain!");
+                showToast("Silakan masukkan nama domain!", 'error');
                 return;
             }
             showToast(`Mengecek ketersediaan: ${val}...`);
@@ -854,15 +880,78 @@
             }, 1500);
         }
 
+        // --- NEW: API Tools Logic ---
+
+        // 1. Minecraft Server Checker (API: mcsrvstat.us)
+        async function checkMinecraft() {
+            const input = document.getElementById('mc-input').value.trim();
+            if(!input) {
+                showToast("Masukkan IP Server Minecraft!", 'error');
+                return;
+            }
+
+            const resultDiv = document.getElementById('mc-result');
+            const statusDot = document.getElementById('mc-status-dot');
+            const statusText = document.getElementById('mc-status-text');
+            
+            showToast("Menghubungi server...");
+            statusText.innerText = "Checking...";
+            resultDiv.classList.add('show');
+
+            try {
+                const response = await fetch(`https://api.mcsrvstat.us/2/${input}`);
+                const data = await response.json();
+
+                if(data.online) {
+                    statusDot.className = "w-2 h-2 rounded-full bg-green-500 animate-pulse";
+                    statusText.innerText = "Online";
+                    statusText.className = "text-green-400 font-bold";
+                    
+                    document.getElementById('mc-ver').innerText = data.version;
+                    document.getElementById('mc-players').innerText = `${data.players.online} / ${data.players.max}`;
+                    // Strip color codes from MOTD or use clean version
+                    const cleanMotd = data.motd.clean.join(' ');
+                    document.getElementById('mc-motd').innerText = cleanMotd;
+                    showToast("Server ditemukan!");
+                } else {
+                    statusDot.className = "w-2 h-2 rounded-full bg-red-500";
+                    statusText.innerText = "Offline";
+                    statusText.className = "text-red-400 font-bold";
+                    document.getElementById('mc-motd').innerText = "Server tidak dapat dijangkau.";
+                }
+            } catch (error) {
+                showToast("Gagal mengambil data.", 'error');
+                console.error(error);
+            }
+        }
+
+        // 2. IP Info Checker (API: ipapi.co)
+        async function getMyIP() {
+            const resultDiv = document.getElementById('ip-result');
+            showToast("Mendeteksi IP...");
+            
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                
+                document.getElementById('my-ip').innerText = data.ip;
+                document.getElementById('my-country').innerText = `${data.city}, ${data.country_name}`;
+                document.getElementById('my-isp').innerText = data.org;
+                
+                resultDiv.classList.add('show');
+                showToast("IP Berhasil dideteksi!");
+            } catch (error) {
+                showToast("Gagal mendeteksi IP (Blocker?)", 'error');
+            }
+        }
+
         // FAQ Toggle
         function toggleFAQ(element) {
-            // Close all others
             document.querySelectorAll('.faq-item').forEach(item => {
                 if(item !== element) {
                     item.classList.remove('active');
                 }
             });
-            // Toggle current
             element.classList.toggle('active');
         }
 
